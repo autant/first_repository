@@ -1,3 +1,4 @@
+<form action="/user/register" method="POST">
 <?php
 require_once 'controllers/UserController.php';
 
@@ -66,3 +67,7 @@ switch($action) {
         require_once 'views/home.php';
         break;
 }
+?>
+<button type="submit">S'inscrire</button>
+</form>
+

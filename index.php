@@ -1,6 +1,8 @@
 <?php
 require_once 'controllers/UserController.php';
 
+require_once 'controllers/UserController.php';
+
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 
 switch($action) {
@@ -21,8 +23,8 @@ switch($action) {
         session_destroy();
         header('Location: index.php');
         break;
-//    default:
-//        // Afficher la page d'accueil
-//        require_once 'views/home.php';
-//        break;
+    default:
+        // Afficher la page d'accueil
+        require_once 'views/home.php';
+        break;
 }
