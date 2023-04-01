@@ -10,3 +10,6 @@ $model = new PillsModel($pdo);
 $controller = new PillsController($model);
 
 $controller->display();
+
+require_once'header.php';
+

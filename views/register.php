@@ -1,4 +1,4 @@
-<form action="/user/register" method="POST">
+<form action="/register" method="POST">
 <?php
 require_once 'controllers/UserController.php';
 
@@ -7,7 +7,7 @@ $action = isset($_GET['action']) ? $_GET['action'] : '';
 switch($action) {
     case 'login':
         // Afficher la page de connexion
-        require_once 'views/user/login.php';
+        require_once 'views/login.php';
         break;
     case 'register':
         // Traitement de l'inscription
@@ -48,11 +48,11 @@ switch($action) {
                 $userController->register();
             } else {
                 // Affichage des erreurs
-                require_once 'views/user/register.php';
+                require_once 'views/register.php';
             }
         } else {
             // Afficher la page d'enregistrement
-            require_once 'views/user/register.php';
+            require_once 'views/register.php';
         }
         break;
     case 'logout':
@@ -68,6 +68,26 @@ switch($action) {
         break;
 }
 ?>
-<button type="submit">S'inscrire</button>
+
+    <label for="email">Adresse email</label>
+    <input type="email" id="email" name="email" required>
+    <br>
+    <label for="pseudo">Pseudo</label>
+    <input type="text" id="pseudo" name="pseudo" required>
+    <br>
+    <label for="password">Mot de passe</label>
+    <input type="password" id="password" name="password" required>
+    <br>
+    <label for="firstname">Prénom</label>
+    <input type="text" id="firstname" name="firstname" required>
+    <br>
+    <label for="lastname">Nom</label>
+    <input type="text" id="lastname" name="lastname" required>
+    <br>
+    <label for="ddn">Date de naissance</label>
+    <input type="date" id="ddn" name="ddn" required>
+    <br>
+    <button type="submit">S'inscrire</button>
 </form>
+
 
