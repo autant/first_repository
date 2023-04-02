@@ -1,13 +1,18 @@
-<form action="/register" method="POST">
+<form action="index.php?action=register" method="POST">
+
 <?php
-require_once 'controllers/UserController.php';
+
+require_once 'models/UserModel.php';
+require_once 'config/Database.php';
+
+$userModel = new UserModel();
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 
 switch($action) {
     case 'login':
         // Afficher la page de connexion
-        require_once 'views/login.php';
+        require_once './views/login.php';
         break;
     case 'register':
         // Traitement de l'inscription
@@ -44,15 +49,21 @@ switch($action) {
 
             if (count($errors) === 0) {
                 // Tous les champs sont valides, on peut créer le compte utilisateur
-                $userController = new UserController();
-                $userController->register();
+                $userModel->setEmail($email);
+                $userModel->setPseudo($pseudo);
+                $userModel->setPassword(password_hash($password, PASSWORD_DEFAULT));
+                $userModel->setFirstname($firstname);
+                $userModel->setLastname($lastname);
+                $userModel->setDdn($ddn);
+                $result = $userModel->createUser();
+                var_dump($result);
             } else {
                 // Affichage des erreurs
-                require_once 'views/register.php';
+                require_once './views/register.php';
             }
         } else {
             // Afficher la page d'enregistrement
-            require_once 'views/register.php';
+            require_once './views/login.php';
         }
         break;
     case 'logout':
@@ -64,9 +75,10 @@ switch($action) {
         break;
     default:
         // Afficher la page d'accueil
-        require_once 'views/home.php';
+        require_once '../views/home.php';
         break;
 }
+
 ?>
 
     <label for="email">Adresse email</label>
@@ -87,7 +99,4 @@ switch($action) {
     <label for="ddn">Date de naissance</label>
     <input type="date" id="ddn" name="ddn" required>
     <br>
-    <button type="submit">S'inscrire</button>
-</form>
-
-
+    <button type="submit">

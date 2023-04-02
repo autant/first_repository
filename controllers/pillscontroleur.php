@@ -12,7 +12,7 @@ class PillsController {
 
   public function display() {
     $todos = $this->model->getAllTodos();
-    include './views/pills.php';
+    include '../views/pills.php';
   }
 
 }

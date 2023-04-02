@@ -1,6 +1,30 @@
 <?php
 // Inclure le fichier d'en-tête
 require_once 'views/header.php';
+
+// Vérifier si le formulaire de connexion a été soumis
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Récupérer les données de connexion du formulaire
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    // Vérifier si l'utilisateur existe dans la base de données
+    $userController = new UserController();
+    $user = $userController->getUserByUsername($username);
+
+    if ($user && password_verify($password, $user->password)) {
+        // L'utilisateur existe et le mot de passe est correct, connecter l'utilisateur en créant une variable de session
+        session_start();
+        $_SESSION['user_id'] = $user->id;
+
+        // Rediriger l'utilisateur vers la page d'accueil
+        header('Location: index.php?action=home');
+        exit;
+    } else {
+        // Le nom d'utilisateur ou le mot de passe est incorrect, afficher un message d'erreur
+        $errorMessage = 'Nom d\'utilisateur ou mot de passe incorrect';
+    }
+}
 ?>
 
 <h1>Page de connexion</h1>
